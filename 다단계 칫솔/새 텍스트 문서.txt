@@ -1,0 +1,16 @@
+def solution(enroll, referral, seller, amount):
+    answer = [0 for _ in enroll]
+    
+    marr = {i:[] for i in enroll}
+    
+    for x, y in zip(seller, amount):
+        marr[x].append(y*100)
+    
+    for m in reversed(enroll):
+        money = marr[m]
+        parent = referral[enroll.index(m)]
+        if parent != '-':
+            marr[parent] += list(map(lambda x:x//10, marr[m]))
+        answer[enroll.index(m)] = sum(map(lambda x:x-x//10, marr[m]))
+
+    return answer

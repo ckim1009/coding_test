@@ -1,0 +1,37 @@
+from collections import deque
+def solution(bridge_length, weight, truck_weights):
+    answer = 0
+    b = deque()
+    
+    time=0
+    total=0
+    for i,w in enumerate(truck_weights):
+        
+        if total+w<=weight:
+            if len(b)<=bridge_length:
+                b.append([w,time])
+            else:
+                w2,t2=b.popleft()
+                total-=w2
+                time=t2+bridge_length
+                b.append([w,time])
+                
+        else:
+            w2,t2 = 0,0
+            while b:
+                w2,t2=b.popleft()
+                total-=w2
+                if total+w<=weight:
+                    break
+            time=t2+bridge_length
+            b.append([w,time])
+            
+        total+=w
+            
+        time+=1
+        
+        if i==len(truck_weights)-1:
+            print(b)
+            answer = b[-1][1]+bridge_length+1
+            
+    return answer

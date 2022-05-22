@@ -1,0 +1,19 @@
+def solution(enroll, referral, seller, amount):
+    answer = dict(zip(enroll,[0 for _ in enroll]))
+    parent = dict(zip(enroll,referral))
+    
+    for i in range(len(seller)):
+        money = amount[i]*100
+        curr=seller[i]
+        while True:
+	answer[curr] += money-money//10
+            if money<10:
+                break
+            else :
+                if parent[curr] == '-':
+                    break
+                curr = parent[curr]
+                money = money//10
+            
+            
+    return list(answer.values())

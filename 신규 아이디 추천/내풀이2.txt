@@ -1,0 +1,30 @@
+import re
+def solution(new_id):
+    p = re.compile('[a-z0-9\.\-\_]*')
+    p2 = re.compile('[a-z0-9\-\_]*')
+    
+    answer = new_id.lower()
+    answer = ''.join(p.findall(answer))
+    
+    while '..' in answer:
+        answer = answer.replace('..','.')
+    
+
+    if len(answer)==0:
+        answer='a'
+        
+    if answer[0]=='.':
+        answer = ''.join(list(answer)[1:]) if len(answer)>=2 else 'a'
+        
+    if answer[len(answer)-1]=='.':
+        answer = ''.join(list(answer)[:len(answer)-1]) if len(answer)>=2 else 'a'   
+        print(answer)
+    if len(answer)>=16:
+        answer = ''.join(list(answer)[:15])
+        if answer[14]=='.':
+            answer = ''.join(list(answer)[:14])
+    
+    last = answer[len(answer)-1]
+    while len(answer) <= 2:
+        answer += last
+    return answer

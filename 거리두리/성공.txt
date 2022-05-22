@@ -1,0 +1,48 @@
+from collections import deque 
+
+def bfs(part):
+
+    p = []
+    for i in range(5):
+            for j in range(5):
+                if part[i][j]=='P':
+                    p.append([i,j])
+    
+    for i,j in p:
+        arr=[[0 for _ in range(5)] for _ in range(5)]
+        q = deque()
+        q.append([i,j,0])
+
+        dx = [0,1,0,-1]
+        dy = [-1,0,1,0]
+
+        while q:
+            y,x,count = q.popleft()
+            if count>=2:
+                break
+
+            arr[y][x]=1
+
+            for ty,tx in zip(dy,dx):
+                rx = x+tx
+                ry = y+ty
+                if 0<=rx<5 and 0<=ry<5 and arr[ry][rx]==0:
+                    if part[ry][rx]=='O':
+                        q.append([ry,rx,count+1])
+
+                    if part[ry][rx]=='P' and count<=2:
+                        return 0
+    return 1 
+    
+         
+            
+def solution(places):
+    answer = [0 for _ in places]
+    
+    for k,part in enumerate(places):
+        check = 1
+        answer[k] = bfs(part)
+        
+                    
+    
+    return answer
