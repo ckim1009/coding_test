@@ -1,0 +1,29 @@
+import re
+def solution(word, pages):
+    answer = 0
+    lw = word.lower()
+    basic = {}
+    link = {}
+    cur={}
+    w = {i : 0 for i in range(len(pages))}
+    
+    for i,page in enumerate(pages):
+        lpage = page.lower()
+        
+        temp = re.findall('[^a-z]+'+lw+'[^a-z]+',lpage)
+        basic[i]=len(temp)
+        
+        cur[re.findall('content=["]https://(.*)["]',lpage)[0]] = i
+        w[i]+=basic[i]
+        
+    for i,page in enumerate(pages):
+        lpage = page.lower()
+        
+        temp = re.findall('<a href=["]https://(.*)["]>',lpage)
+        
+        link[i] = len(temp)
+        for j in temp:
+            if cur.get(j)!=None:
+                w[cur[j]] += basic[i]/link[i]
+    
+    return sorted(list(w.items()),key=lambda x : (-x[1],x[0]))[0][0]

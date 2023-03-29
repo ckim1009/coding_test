@@ -1,0 +1,19 @@
+import re
+from itertools import permutations
+
+def solution(user_id, banned_id):
+    n = len(banned_id)
+    banned_id = [i.replace('*','.') for i in banned_id]
+    answer = 0
+    ban = []
+    for l in permutations(user_id, n):
+        flag = True
+        for i,j in enumerate(l):
+            if re.match(banned_id[i],j) and len(banned_id[i])==len(j):
+                continue
+            else:
+                flag=False
+                break
+        if flag:
+            ban.append(tuple(sorted(l)))
+    return len(set(ban))

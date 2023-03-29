@@ -1,0 +1,38 @@
+from itertools import permutations
+def solution(picks, minerals):
+    answer = 99999999
+    
+    dict1 = {"diamond":0, "iron":1, "stone":2}
+    
+    dict2 = {0:[1,1,1],1:[5,1,1],2:[25,5,1]}
+    
+    num = len(minerals)//5 if len(minerals)%5==0 else len(minerals)//5+1
+    
+    count=[]
+    
+    for i in range(len(picks)):
+        for j in range(picks[i]):
+            count.append(i)
+    
+    if num > len(count):
+        num = len(count)
+    
+    for i in permutations(count,num):
+        li = []
+        temp = 0
+        for j in range(num):
+            li.append(i[j])
+            li.append(i[j])
+            li.append(i[j])
+            li.append(i[j])
+            li.append(i[j])
+        for j in range(len(li)):
+            if j>=len(minerals):
+                break
+            elif dict2[li[j]]==None:
+                break
+            temp+=dict2[li[j]][dict1[minerals[j]]]
+        if answer>temp:
+            answer = temp    
+    
+    return answer

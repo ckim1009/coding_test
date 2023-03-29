@@ -1,0 +1,41 @@
+
+def solution(arr):
+    dict1 = {i:'' for i in range(10)}
+    dict1[1]='일'
+    dict1[2]='이'
+    dict1[3]='삼'
+    dict1[4]='사'
+    dict1[5]='오'
+    dict1[6]='육'
+    dict1[7]='칠'
+    dict1[8]='팔'
+    dict1[9]='구'
+    
+    dict2 = {i:'' for i in range(4)}
+    dict2[1]='십'
+    dict2[2]='백'
+    dict2[3]='천'
+    
+    dict3 = {i:'' for i in range(4)}
+    dict3[1]='만'
+    dict3[2]='억'
+    dict3[3]='조'
+    
+    ans =''
+    i=0
+    j=0
+    
+    for k in arr1[::-1]:
+        if i==0:
+            ans+=dict3[j]
+        if int(k)!=0:
+            ans+=dict2[i]
+            if (i==0 and int(k)==1) or int(k)!=1:
+                ans+=dict1[int(k)]
+        i+=1
+        if i==4:
+            i=0
+            j+=1
+            
+            
+    print(ans[::-1])
