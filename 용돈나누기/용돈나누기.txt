@@ -1,0 +1,30 @@
+import queue
+def solution(data):
+    answer = 0
+    data = [[50,5],[100,2],[200,2]] 
+    rawdata = []
+    for i,j in data:
+        for k in range(j):
+            rawdata.append(i)
+    print(rawdata)
+    
+    aim = sum(rawdata)/2
+    cur=0
+    index = 0
+    q=queue.Queue()
+    maxnum = 0
+    q.put((aim,cur,index))
+    
+    while not q.empty():
+        a,c,i=q.get()
+        if maxnum<c:
+            maxnum=c
+        
+        if a < c+rawdata[i]:
+            continue
+        
+        if i+1 != len(rawdata):
+            q.put((a,c+rawdata[i],i+1))
+            q.put((a,c,i+1))
+    print(maxnum, sum(rawdata)-maxnum)
+    return answer

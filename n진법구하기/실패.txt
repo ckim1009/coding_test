@@ -1,0 +1,16 @@
+def solution(n, t, m, p):
+    answer = ''
+    temp = ''
+    i=0
+    for i in range(t*m):
+        if n==2:
+            temp+=str(bin(i))[2:]
+        elif n==8:
+            temp+=str(oct(i))[2:]
+        elif n==16:
+            temp+=str(hex(i))[2:]
+        else:
+            temp+=str(i)
+            
+    temp = temp.upper()
+    return temp[p-1::m][:t]
